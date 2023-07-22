@@ -1,5 +1,9 @@
 import { signIn } from "next-auth/react";
 
-export default function LoginButton() {
-    return <button onClick={() => signIn()}>Sign in</button>;
+type ButtonProps = {
+    provider: string;
+};
+
+export default function LoginButton({ provider }: ButtonProps) {
+    return <button onClick={() => signIn(provider)}>Sign with {provider}</button>;
 }
