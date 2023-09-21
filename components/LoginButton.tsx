@@ -5,5 +5,9 @@ type ButtonProps = {
 };
 
 export default function LoginButton({ provider }: ButtonProps) {
-    return <button onClick={() => signIn(provider)}>Sign with {provider}</button>;
+    return (
+        <button style={{ cursor: "pointer" }} onClick={() => signIn(provider)}>
+            Sign with {provider}
+        </button>
+    );
 }
