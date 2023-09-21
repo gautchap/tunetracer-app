@@ -79,7 +79,7 @@ export const authOptions: NextAuthOptions = {
                 });
             }
 
-            if (token.accessTokenExpires && Date.now() * 1000 > token.accessTokenExpires * 1000) {
+            if (token.accessTokenExpires && Date.now() > token.accessTokenExpires * 1000) {
                 const newToken = await refreshAccessToken(token);
                 if (newToken) return newToken;
             }
