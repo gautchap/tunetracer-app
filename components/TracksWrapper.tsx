@@ -46,9 +46,10 @@ const TracksWrapper = ({ token, range }: TracksWrapperProps) => {
           {tracks?.items.map((track, index) => (
             <TableRow key={track.id}>
               <TableCell className="font-medium flex items-center gap-3">
-                {index + 1}
+                #{index + 1}
                 <Link href={track.external_urls.spotify}>
                   <img
+                    className="rounded-lg shadow-lg"
                     width={50}
                     height={50}
                     src={track.album.images ? track.album.images[2].url : ""}
