@@ -10,7 +10,6 @@ type HomeProps = {
 };
 
 export default function Home({ user }: HomeProps) {
-  console.log(user);
   return (
     <>
       <Head>
@@ -47,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
-    return { props: { user: null } };
+    return { props: { user: undefined } };
   }
 
   return {
