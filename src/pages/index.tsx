@@ -23,9 +23,9 @@ export default function Home({ user }: HomeProps) {
         <>
           <h1>Hours Listened</h1>
           {user ? (
-            <p>You&apos;re not connected ❌</p>
-          ) : (
             <p>You&apos;re connected ✅</p>
+          ) : (
+            <p>You&apos;re not connected ❌</p>
           )}
           <Card className="my-6">
             <CardHeader>
