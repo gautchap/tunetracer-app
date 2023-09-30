@@ -20,23 +20,22 @@ export default function Home({ user }: HomeProps) {
       </Head>
 
       <main className="container">
-        {user ? (
-          <>
-            <h1>Hours Listened</h1>
-            <Card className="my-6">
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-              </CardHeader>
-              <CardContent className="pl-2">
-                <Overview />
-              </CardContent>
-            </Card>
-          </>
-        ) : (
-          <>
-            <p>Vous devez être connecté pour accéder au contenu</p>
-          </>
-        )}
+        <>
+          <h1>Hours Listened</h1>
+          {user ? (
+            <p>You&apos;re not connected ❌</p>
+          ) : (
+            <p>You&apos;re connected ✅</p>
+          )}
+          <Card className="my-6">
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+            </CardHeader>
+            <CardContent className="pl-2">
+              <Overview />
+            </CardContent>
+          </Card>
+        </>
       </main>
     </>
   );
