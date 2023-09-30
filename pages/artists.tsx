@@ -23,7 +23,7 @@ export default function Artists({ token }: ArtistsProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container">
+      <main className="container px-0 sm:px-4">
         <Tabs
           defaultValue="medium_term"
           className="flex flex-col my-4 md:my-8 mx-auto"
@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
-    return { props: { token: null } };
+    return { props: { token: undefined } };
   }
 
   return {

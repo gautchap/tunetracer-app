@@ -11,13 +11,14 @@ const ArtistCard = ({ artist, ranking }: ArtistCardProps) => {
   const isMobile = useContext(MobileContext);
 
   return (
-    <div>
-      <p>
-        {ranking + 1}. {artist.name}
+    <article>
+      <p className="font-bold ml-1">
+        #{ranking + 1} {artist.name}
       </p>
 
       <a href={artist.external_urls.spotify}>
         <img
+          className="rounded-2xl shadow-lg"
           src={
             artist.images
               ? isMobile
@@ -31,7 +32,7 @@ const ArtistCard = ({ artist, ranking }: ArtistCardProps) => {
           sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 26vw"
         />
       </a>
-    </div>
+    </article>
   );
 };
 
