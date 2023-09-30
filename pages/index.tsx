@@ -6,7 +6,7 @@ import { Overview } from "@/components/ListenChart";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 type HomeProps = {
-  user: DefaultSession["user"];
+  user: DefaultSession["user"] | null;
 };
 
 export default function Home({ user }: HomeProps) {
@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
 
   if (!session) {
-    return { props: { user: undefined } };
+    return { props: { user: null } };
   }
 
   return {

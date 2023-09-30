@@ -29,6 +29,7 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
         "filenames/match-regex": 0,
         "camelcase": 0,
-        "unicorn/no-nested-ternary": 0
+        "unicorn/no-nested-ternary": 0,
+        "unicorn/no-null": 0
     }
 }
