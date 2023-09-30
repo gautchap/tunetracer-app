@@ -15,7 +15,7 @@ export async function fetcher<T>(
 ): Promise<T> {
     const config: RequestInit = {
         method: method ?? (data ? "POST" : "GET"),
-        // eslint-disable-next-line unicorn/no-null
+
         body: data ? JSON.stringify(data) : null,
         headers: {
             "Content-Type": data ? "application/json" : "",
@@ -32,10 +32,8 @@ export async function fetcher<T>(
             throw new Error("You're not authenticated");
         }
 
-        // eslint-disable-next-line unicorn/no-null
         let result = null;
         try {
-            // eslint-disable-next-line unicorn/no-null
             result = response.status === 204 ? null : await response.json();
         } catch (error: unknown) {
             // eslint-disable-next-line unicorn/no-useless-promise-resolve-reject

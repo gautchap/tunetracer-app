@@ -2,6 +2,7 @@ import { DefaultSession, Account as NextAuthAccount } from "next-auth";
 import { JWT as NextAuthJWT } from "next-auth/jwt";
 
 declare module "next-auth" {
+  // eslint-disable-next-line no-unused-vars
   interface Session extends DefaultSession {
     accessToken: string;
     error?: string;
@@ -9,12 +10,14 @@ declare module "next-auth" {
       image: string | undefined;
     } & DefaultSession["user"];
   }
+  // eslint-disable-next-line no-unused-vars
   interface Account extends NextAuthAccount {
     expires_at: number;
   }
 }
 
 declare module "next-auth/jwt" {
+  // eslint-disable-next-line no-unused-vars
   interface JWT extends NextAuthJWT {
     id: string;
     accessToken: string;
