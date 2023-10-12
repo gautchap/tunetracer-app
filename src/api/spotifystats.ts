@@ -23,7 +23,7 @@ export const getFavArtists = async ({
 export const getFavTracks = async ({
   token,
   range = "medium_term",
-  limit = 21,
+  limit = 50,
 }: FavItemsProps) =>
   fetcher(
     `https://api.spotify.com/v1/me/top/tracks?time_range=${range}&limit=${limit}`,
