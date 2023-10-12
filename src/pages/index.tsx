@@ -21,7 +21,7 @@ export default function Home({ user }: HomeProps) {
 
       <main className="container">
         <>
-          <h1>Hours Listened</h1>
+          <h1 className="text-6xl font-bold">TuneTracer</h1>
           {user ? (
             <p>You&apos;re connected ✅</p>
           ) : (
