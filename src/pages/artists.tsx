@@ -78,6 +78,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     range: "medium_term",
   });
 
+  if (!artists) {
+    return { props: { token: null, artists: null } };
+  }
+
   return {
     props: { token: session.accessToken, artists },
   };
