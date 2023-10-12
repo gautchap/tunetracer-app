@@ -6,6 +6,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "@/context/ThemeProvider";
 import { NavBar } from "@/components/NavBar";
 import { Toaster } from "@/components/ui/toaster";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const queryClient = new QueryClient();
 
@@ -22,9 +25,11 @@ export default function App({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          <Component {...pageProps} />
-          <Toaster />
+          <div className={inter.className}>
+            <NavBar />
+            <Component {...pageProps} />
+            <Toaster />{" "}
+          </div>
         </ThemeProvider>
       </SessionProvider>
       <ReactQueryDevtools />
