@@ -4,6 +4,7 @@ import { JWT as NextAuthJWT } from "next-auth/jwt";
 declare module "next-auth" {
   // eslint-disable-next-line no-unused-vars
   interface Session extends DefaultSession {
+    id: string;
     accessToken: string;
     error?: string;
     user: {
