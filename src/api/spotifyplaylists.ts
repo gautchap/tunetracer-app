@@ -1,5 +1,8 @@
 import { fetcher } from "@/api/fetcher";
-import { CreatePlaylistResponseSchema } from "@/types/spotifyTypes";
+import {
+  addTracksToPlaylistResponseSchema,
+  CreatePlaylistResponseSchema,
+} from "@/types/spotifyTypes";
 
 type createPlaylistType = {
   token: string;
@@ -39,4 +42,5 @@ export const addTrackToPlaylist = async ({
     data: {
       uris,
     },
+    zodSchema: addTracksToPlaylistResponseSchema,
   });

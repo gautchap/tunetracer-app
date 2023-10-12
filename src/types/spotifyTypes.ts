@@ -124,6 +124,10 @@ export const CreatePlaylistResponseSchema = z.object({
   id: z.string(),
 });
 
+export const addTracksToPlaylistResponseSchema = z.object({
+  snapshot_id: z.string(),
+});
+
 export type TypeItem = z.infer<typeof TypeScheme>;
 export type FavItemsProps = z.infer<typeof FavItemsPropsScheme>;
 export type Range = z.infer<typeof RangeScheme>;
