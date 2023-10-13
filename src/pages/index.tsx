@@ -2,7 +2,7 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { DefaultSession, getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { Overview } from "@/components/ListenChart";
+import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 type HomeProps = {
@@ -21,18 +21,53 @@ export default function Home({ user }: HomeProps) {
 
       <main className="container">
         <>
-          <h1 className="text-6xl font-bold">TuneTracer</h1>
+          <h1 className="text-5xl sm:text-6xl font-bold">TuneTracer</h1>
           {user ? (
-            <p>You&apos;re connected ✅</p>
+            <h2>You&apos;re connected ✅</h2>
           ) : (
-            <p>You&apos;re not connected ❌</p>
+            <h2>You&apos;re not connected ❌</h2>
           )}
           <Card className="my-6">
-            <CardHeader>
-              <CardTitle>Overview</CardTitle>
+            <CardHeader className="pl-20">
+              <CardTitle>Historical Data</CardTitle>
             </CardHeader>
-            <CardContent className="pl-2">
-              <Overview />
+            <CardContent className="overflow-hidden sm:flex items-center justify-center">
+              <Image
+                className="float-left sm:float-none w-40 h-40 md:w-auto md:h-auto"
+                priority={true}
+                quality={100}
+                src="/spotify-logo.png"
+                alt="Spotify Logo"
+                width={250}
+                height={250}
+                draggable="false"
+              />
+              <p>
+                Explore your top-played songs, artists, and musical preferences,
+                and easily toggle between three distinct time intervals.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="my-6">
+            <CardHeader className="pl-20">
+              <CardTitle>Create Playlist</CardTitle>
+            </CardHeader>
+            <CardContent className="overflow-hidden sm:flex items-center justify-center">
+              <Image
+                className="float-left sm:float-none w-40 h-40 md:w-auto md:h-auto"
+                priority={true}
+                quality={100}
+                src="/notify-heart-dynamic-gradient.png"
+                alt="Playlist Logo"
+                width={250}
+                height={250}
+                draggable="false"
+              />
+              <p>
+                Generate a playlist using your personal charts with time and
+                enjoy listening to it directly within your Spotify application.
+              </p>
             </CardContent>
           </Card>
         </>
