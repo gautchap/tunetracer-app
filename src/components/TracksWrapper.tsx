@@ -15,6 +15,8 @@ import { Button } from "@/components/ui/button";
 import { usePreparedTrackQuery } from "@/hooks/usePreparedQuery";
 import { TrackLoader } from "@/components/Loader";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 type TracksWrapperProps = {
   token: string;
@@ -24,6 +26,7 @@ type TracksWrapperProps = {
 
 const TracksWrapper = ({ token, range, initialData }: TracksWrapperProps) => {
   const { data: session } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
 
@@ -33,6 +36,7 @@ const TracksWrapper = ({ token, range, initialData }: TracksWrapperProps) => {
   if (fetchTracksError) return <p>Une erreur est survenue</p>;
 
   const handlePlaylist = async () => {
+    setIsLoading(true);
     const today = new Date();
 
     const text =
@@ -60,22 +64,23 @@ const TracksWrapper = ({ token, range, initialData }: TracksWrapperProps) => {
       toast({
         description: "✅ Votre playlist a été créée avec succès",
       });
-    } catch (error) {
+    } catch {
       toast({
         variant: "destructive",
         description: "❌ Une erreur est survenue",
       });
-      // @ts-ignore
-      throw new Error(error);
     }
+    setIsLoading(false);
   };
 
   return (
     <>
       <Button
+        disabled={isLoading}
         className="translate-x-[-50%] left-1/2 relative md:static md:translate-x-0"
         onClick={handlePlaylist}
       >
+        {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
         Create playlist
       </Button>
       <Table>
