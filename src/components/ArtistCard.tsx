@@ -13,6 +13,7 @@ const ArtistCard = ({ artist, ranking }: ArtistCardProps) => {
       </p>
 
       <a
+        target="_blank"
         href={artist.external_urls.spotify}
         className="inline-block overflow-hidden rounded-2xl"
       >
