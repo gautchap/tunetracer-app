@@ -13,6 +13,8 @@ declare module "next-auth" {
   }
   // eslint-disable-next-line no-unused-vars
   interface Account extends NextAuthAccount {
+    access_token: string;
+    refresh_token: string;
     expires_at: number;
   }
 }
