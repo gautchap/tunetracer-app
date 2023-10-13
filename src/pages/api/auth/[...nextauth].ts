@@ -1,41 +1,33 @@
-import NextAuth, { NextAuthOptions, TokenSet } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 import { JWT } from "next-auth/jwt";
 
-const refreshAccessToken = async (token: JWT): Promise<JWT | undefined> => {
-  try {
-    const response = await fetch("https://accounts.spotify.com/api/token", {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${Buffer.from(
-          `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`,
-        ).toString("base64")}`,
-      },
+const refreshAccessToken = async (token: JWT) => {
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${Buffer.from(
+        `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`,
+      ).toString("base64")}`,
+    },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: token.refreshToken,
+    }),
+    method: "POST",
+  });
 
-      body: new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: token.refreshToken,
-      }),
-      method: "POST",
-    });
+  const newToken = await response.json();
 
-    const tokens: TokenSet = await response.json();
+  const date = new Date();
 
-    if (!response.ok) throw tokens;
-
-    token = Object.assign({}, token, {
-      accessToken: tokens.access_token,
-    });
-    token = Object.assign({}, token, {
-      accessTokenExpires:
-        tokens.expires_at && Math.floor(Date.now() / 1000 + tokens.expires_at),
-    });
-    token = Object.assign({}, token, {
-      refreshToken: tokens.refresh_token,
-    });
-  } catch {
-    return { ...token, error: "RefreshAccessTokenError" as const };
-  }
+  return {
+    ...token,
+    accessToken: newToken.access_token,
+    refreshToken: newToken.refresh_token ?? token.refreshToken,
+    accessTokenExpires:
+      date.setSeconds(date.getSeconds() + newToken.expires_in) / 1000,
+  };
 };
 
 export const authOptions: NextAuthOptions = {
@@ -54,49 +46,33 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      if (session && token) {
-        session = Object.assign({}, session, { id: token.id });
-        session = Object.assign({}, session, {
-          accessToken: token.accessToken,
-        });
-        session = Object.assign({}, session, { error: token.error });
-      }
+      session.id = token.id;
+      session.accessToken = token.accessToken;
       return session;
     },
 
-    async jwt({ token, user, account }) {
-      if (user) {
-        token = Object.assign({}, token, { id: user.id });
-      }
-
+    async jwt({ token, account }) {
       if (account) {
-        token = Object.assign({}, token, {
-          accessToken: account.access_token,
-        });
-        token = Object.assign({}, token, {
-          accessTokenExpires:
-            account.expires_at &&
-            Math.floor(Date.now() / 1000 + account.expires_at),
-        });
-        token = Object.assign({}, token, {
-          refreshToken: account.refresh_token,
-        });
+        token.id = account.providerAccountId;
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
+        token.accessTokenExpires = account.expires_at;
+        return token;
       }
-
       if (
         token.accessTokenExpires &&
-        Date.now() > token.accessTokenExpires * 1000
+        Date.now() < token.accessTokenExpires * 1000
       ) {
-        const newToken = await refreshAccessToken(token);
-        if (newToken) return newToken;
+        return token;
       }
 
-      return token;
+      return await refreshAccessToken(token);
     },
   },
   pages: {
     error: "/auth/error",
   },
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);
