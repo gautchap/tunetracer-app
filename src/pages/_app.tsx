@@ -28,7 +28,7 @@ export default function App({
           <div className={inter.className}>
             <NavBar />
             <Component {...pageProps} />
-            <Toaster />{" "}
+            <Toaster />
           </div>
         </ThemeProvider>
       </SessionProvider>
