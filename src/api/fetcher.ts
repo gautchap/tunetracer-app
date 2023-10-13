@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { signOut } from "next-auth/react";
 
 interface FetcherConfig<T> {
   data?: unknown;
@@ -34,7 +33,6 @@ export async function fetcher<T>(
   // eslint-disable-next-line github/no-then
   return fetch(url, config).then(async (response) => {
     if (response.status === 401) {
-      signOut();
       throw new Error("You're not authenticated");
     }
 
