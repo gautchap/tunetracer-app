@@ -2,21 +2,22 @@ import PlayerSkeleton from "@/components/PlayerSkeleton";
 import TrackLenght from "@/components/TrackLength";
 import { Player } from "@/components/Player";
 import Speakers from "@/components/Speakers";
-import { Button } from "@/components/ui/button";
 import { useDevice } from "@/hooks/useDevice";
 import { useCurrentSong } from "@/hooks/useCurrentSong";
 
 export default function PlayerSection() {
     const current = useCurrentSong();
 
-    const devices = useDevice();
+    const { devices, setDevice } = useDevice();
 
     const artistID = current?.track_window.current_track.artists[0].uri.replace("spotify:artist:", "");
+
+    const activeDevice = devices?.find((device) => device.is_active === true);
 
     return (
         <>
             <div className="mx-auto">
-                <h1 className="text-center text-2xl mb-5">Now playing</h1>
+                <h1 className="text-center text-2xl mb-5 font-bold">Now playing</h1>
                 <div className="text-center space-y-2">
                     {current ? (
                         <>
@@ -51,10 +52,14 @@ export default function PlayerSection() {
                 <div className="mx-auto w-3/4 md:w-10/12">
                     <TrackLenght />
                 </div>
-                <div className="mx-auto w-[300px] space-y-4">
+                <div className="mx-auto w-[300px] space-y-6">
                     <Player />
                     <Speakers />
-                    <Button onClick={() => devices.setDevice()}>Player</Button>
+                    <div className="flex justify-center">
+                        <p className="cursor-pointer bg-primary/50 rounded-full py-2 px-4" onClick={() => setDevice()}>
+                            🎧 {activeDevice?.name}
+                        </p>
+                    </div>
                 </div>
             </div>
         </>
