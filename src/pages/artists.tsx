@@ -22,7 +22,7 @@ export default function Artists({ token, artists }: ArtistsProps) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="container px-0 sm:px-4">
+            <main className="container px-0 sm:px-4 my-20">
                 {token && (
                     <Tabs defaultValue="medium_term" className="flex flex-col my-4 md:my-8 mx-auto">
                         <TabsList className="m-auto">

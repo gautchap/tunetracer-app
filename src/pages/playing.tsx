@@ -15,9 +15,9 @@ export default function Playing() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="flex">
-                <div className="w-1/3">
-                    <p>Discover New Music</p>
+            <main className="container flex mt-12 justify-center">
+                <div className="w-1/3 pt-8 px-4 hidden md:block">
+                    <h2 className="text-4xl font-bold">Discover New Music</h2>
                     <div>
                         <h2>Top chart</h2>
                         <div className="flex flex-wrap">
@@ -57,17 +57,17 @@ export default function Playing() {
                         </div>
                     </div>
                 </div>
-                <div className="border-x w-1/3 flex flex-col bg-secondary">
+                <div className="md:border-x md:w-1/3 flex flex-col md:bg-secondary pt-8 h-[94dvh]">
                     <PlayerSection />
                 </div>
-                <div className="w-1/3">
-                    <h2>Track list</h2>
+                <div className="w-1/3 pt-8 px-4 hidden md:block">
+                    <h2 className="text-3xl font-bold">Track list</h2>
                     <div>
-                        <p>playing next</p>
+                        <p className="text-gray-400">Playing next</p>
                         <NextTrackList />
                     </div>
                 </div>
-            </div>
+            </main>
         </>
     );
 }

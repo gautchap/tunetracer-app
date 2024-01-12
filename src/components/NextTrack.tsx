@@ -14,7 +14,7 @@ const NextTrack = memo(function NextTrack({ track }: { track: Spotify.Track }) {
                 <img
                     width={64}
                     height={64}
-                    className="cursor-pointer"
+                    className="cursor-pointer rounded-lg shadow-md mx-2"
                     onClick={() => playSong(track.uri)}
                     src={track.album.images[1].url}
                     alt={track.name}
@@ -25,8 +25,8 @@ const NextTrack = memo(function NextTrack({ track }: { track: Spotify.Track }) {
                 </div>
             </div>
             <div className="w-1/3">
-                <p>{getTime(track.duration_ms)}</p>
-                <p>2016</p>
+                <p className="font-bold">{getTime(track.duration_ms)}</p>
+                <p className="text-gray-400">2016</p>
             </div>
         </div>
     );

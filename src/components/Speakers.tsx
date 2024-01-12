@@ -45,6 +45,7 @@ const Speakers = memo(function Speakers() {
         <div className="flex justify-evenly items-center">
             <SpeakerModerateIcon onClick={() => syncVolume(0)} />
             <Slider
+                className="select-none touch-none"
                 onClick={() =>
                     syncVolume(
                         (reference.current?.lastChild?.lastChild as { ariaValueNow?: number })?.ariaValueNow ?? 0.5
