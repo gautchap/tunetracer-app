@@ -28,9 +28,9 @@ export default function PlayerSection() {
                             >
                                 <img
                                     className="rounded-md shadow-xl mx-auto h-[300px] w-[300px]"
-                                    width={300}
-                                    height={300}
-                                    src={current.track_window.current_track.album.images[0].url}
+                                    width={640}
+                                    height={640}
+                                    src={current.track_window.current_track.album.images[2].url}
                                     alt={current.track_window.current_track.album.name}
                                 />
                             </a>
