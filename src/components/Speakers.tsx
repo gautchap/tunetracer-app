@@ -9,14 +9,14 @@ const Speakers = memo(function Speakers() {
     const reference = useRef<HTMLSpanElement>(null);
 
     const [volume, setVolume] = useState<number>(
-        (reference?.current?.lastChild?.lastChild as { ariaValueNow?: number })?.ariaValueNow ?? 0.5
+        (reference?.current?.lastChild?.lastChild as { ariaValueNow?: number })?.ariaValueNow || 0.5
     );
 
     if (!player)
         return (
             <div className="flex justify-evenly items-center">
                 <SpeakerModerateIcon />
-                <Slider max={1} step={0.001} />
+                <Slider defaultValue={[volume]} max={1} step={0.001} />
                 <SpeakerLoudIcon />
             </div>
         );
