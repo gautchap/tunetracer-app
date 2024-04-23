@@ -45,7 +45,7 @@ export const CurrentTrackScheme = z.object({
 
     item: z.object({
         album: z.object({
-            album_type: z.enum(["album", "single", "compilation"]),
+            album_type: z.enum(["album", "single", "compilation", "ep"]),
             total_tracks: z.number().min(0),
             available_markets: z.array(z.string()),
             external_urls: z.object({ spotify: z.string().url() }),
@@ -143,15 +143,16 @@ const PlaylistScheme = z.object({
     external_urls: z.object({ spotify: z.string().url() }),
     href: z.string().url(),
     id: z.string(),
-    images: z
-        .array(
-            z.object({
+    images: z.array(
+        z
+            .object({
                 height: z.number().min(0).nullable(),
                 width: z.number().min(0).nullable(),
                 url: z.string().url(),
             })
-        )
-        .optional(),
+            .optional()
+    ),
+
     name: z.string(),
     owner: z.object({
         display_name: z.string().optional(),
@@ -172,11 +173,13 @@ const PlaylistScheme = z.object({
     uri: z.string().url(),
 });
 
-export const PlaylistsScheme = z.array(PlaylistScheme);
+export const PlaylistsScheme = z.object({
+    items: z.array(PlaylistScheme),
+});
 
 const TrackScheme = z.object({
     album: z.object({
-        album_type: z.enum(["ALBUM", "SINGLE", "COMPILATION"]),
+        album_type: z.enum(["ALBUM", "SINGLE", "COMPILATION", "EP"]),
         total_tracks: z.number().min(0),
         available_markets: z.array(z.string()),
         external_urls: z.object({ spotify: z.string().url() }),
@@ -233,6 +236,10 @@ const TrackScheme = z.object({
     type: z.literal("track"),
     uri: z.string().url(),
     is_local: z.boolean(),
+});
+
+export const GetPlaylistScheme = z.object({
+    items: z.array(TrackScheme),
 });
 
 export const FavItemsResponseScheme = z.object({
